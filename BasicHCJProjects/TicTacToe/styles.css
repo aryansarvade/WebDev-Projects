@@ -1,0 +1,122 @@
+.playwrite-ar-myfont {
+  font-family: "Playwrite AR", cursive;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  background-color: #c75b7a;
+  text-align: center;
+  font-family: "Playwrite AR", cursive;
+}
+
+.heading {
+  font-size: 4rem;
+  text-shadow: 5px 3px 3px grey;
+}
+
+.container {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0px;
+}
+
+.game-board {
+  height: 60vmin;
+  width: 60vmin;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.box {
+  background-color: #eb3678;
+  height: 16vmin;
+  width: 16vmin;
+  border-radius: 15px;
+  border: none;
+  /* border: 5px solid firebrick;
+  border-top: 0px;
+  border-left: 0px;*/
+  box-shadow: 5px 5px rgb(190, 42, 66);
+  font-size: 6rem;
+  color: rgb(0, 0, 0);
+  text-shadow: 3px 3px 3px rgb(250, 248, 248);
+  position: relative;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.box::after,
+.box::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
+  background-image: conic-gradient(
+    from var(--angle),
+    #36d6eb,
+    red 70%,
+    #36d6eb
+  );
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  padding: 6px;
+  padding-left: 0px;
+  padding-top: 0px;
+  animation: 3s spin linear infinite;
+}
+
+@keyframes spin {
+  from {
+    --angle: 0deg;
+  }
+  to {
+    --angle: 360deg;
+  }
+}
+
+.box::before {
+  filter: blur(1rem);
+}
+
+#reset-btn {
+  background-color: #eb3678;
+  margin-top: 0;
+  height: 4rem;
+  width: 150px;
+  border: 5px solid firebrick;
+  border-top: 0px;
+  border-left: 0px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px 3px rgb(255, 0, 0);
+  font-family: "Playwrite AR", cursive;
+  font-size: 1.3rem;
+  padding: 5px;
+  color: rgb(0, 0, 0);
+}
+
+#message {
+  font-size: 3rem;
+  color: rgb(0, 0, 0);
+  text-shadow: 3px 3px 3px grey;
+  font-style: italic;
+  margin-top: 0;
+  font-weight: 200px;
+}
