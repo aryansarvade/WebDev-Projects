@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+}
+
+.grid {
+  width: 200px;
+  height: 400px; /* For each box to be 20x20px */
+  background-color: yellow;
+  display: flex; /* To make sure that the divs don't stack over eachother and wrap around in the grid */
+  flex-wrap: wrap;
+}
+
+.grid div {
+  width: 20px;
+  height: 20px;
+}
+
+#start-button {
+  margin: 10px;
+}
+
+.tetrimino {
+  background-color: blue;
+}
+
+.mini-grid {
+  margin-left: 50px;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: yellow;
+}
+
+.mini-grid div {
+  width: 20px;
+  height: 20px;
+}
