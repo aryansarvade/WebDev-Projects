@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.grid {
+  width: 400px;
+  height: 600px;
+  position: relative;
+  overflow: hidden;
+  font-size: 200px;
+  text-align: center;
+  background-image: url("./bg.jpeg");
+  color: rgb(0, 0, 0);
+}
+
+.doodler {
+  width: 60px;
+  height: 85px;
+  position: absolute;
+  background-image: url("./doodler.png");
+  background-size: 60px 85px;
+}
+
+.platform {
+  width: 85px;
+  height: 15px;
+  background-color: rgb(174, 79, 79);
+  position: absolute;
+}
