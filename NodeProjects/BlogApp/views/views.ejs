@@ -1,0 +1,22 @@
+<%-include("partials/header.ejs")%>
+<h1>Post Viewing Page</h1>
+<br/>
+<ol>
+    <% for(let i=0; i < locals.data.length; i++){%>
+    <li>
+        <div class="action-btns">
+            <form action="/viewpost" method="post">
+                <input type="hidden" name="title" value="<%=data[i].title%>"/>
+                <input type="hidden" name="content" value="<%=data[i].content%>"/>
+                <button type="submit" class="submit-btn"><%=data[i].title%></button>
+            </form>
+            <form action="/viewpost" method="post">
+                <input type="hidden" name="deletetitle" value="<%=data[i].title%>"/>
+                <button type="submit" class="submit-btn">Delete</button>
+            </form>
+        </div>
+    </li>
+    <%}%>
+</ol>
+
+<%-include("partials/footer.ejs")%>

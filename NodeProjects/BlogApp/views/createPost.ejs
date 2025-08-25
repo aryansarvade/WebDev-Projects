@@ -1,0 +1,52 @@
+<%-include("partials/header.ejs")%>
+<h1>Post Creation Page</h1>
+
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+      <div class="card shadow-lg border-0 rounded-3">
+        <div class="card-body p-4">
+          <h2 class="card-title mb-4 text-center">✍️ Create New Post</h2>
+
+          <form action="/postcreated" method="post">
+            
+            
+            <div class="mb-3">
+              <label for="title" class="form-label fw-bold">Post Title</label>
+              <input 
+                type="text" 
+                class="form-control form-control-lg" 
+                id="title" 
+                name="title" 
+                placeholder="Enter a catchy blog title" 
+                required
+              >
+            </div>
+
+            
+            <div class="mb-2">
+              <label for="content" class="form-label fw-bold">Post Content</label>
+              <textarea 
+                class="form-control" 
+                id="content" 
+                name="content" 
+                rows="12" 
+                placeholder="Start writing your blog post here..." 
+                required
+                style="resize: vertical; min-height: 300px;"
+              ></textarea>
+            </div>
+
+            
+            <div class="d-flex justify-content-between">
+              <button type="reset" class="btn btn-outline-secondary">Clear</button>
+              <button type="submit" class="btn btn-primary px-4">Publish</button>
+            </div>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%-include("partials/footer.ejs")%>

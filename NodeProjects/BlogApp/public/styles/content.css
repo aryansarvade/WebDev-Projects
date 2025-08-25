@@ -1,0 +1,39 @@
+h1,
+h2,
+p {
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-container .btn {
+  margin: 3rem;
+  width: 8rem;
+  height: 4rem;
+}
+
+.card {
+  margin: 2rem;
+}
+
+.form-control:focus {
+  border-color: gold; /* border color */
+  box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.5); /* golden glow */
+  outline: none; /* remove default outline */
+}
+
+form .submit-btn {
+  border-radius: 0.5rem;
+  width: 100px;
+  height: 50px;
+  margin: 2rem;
+}
+
+.action-btns {
+  display: flex;
+  flex-direction: row;
+}
