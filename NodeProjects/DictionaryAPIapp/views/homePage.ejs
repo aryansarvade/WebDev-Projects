@@ -1,0 +1,26 @@
+<%- include("partials/header.ejs")%>
+
+<div class="main-container">
+    <h1>Welcome to the Dictionary App</h1>
+
+    <!--Making a form-->
+    
+        <form action="/definition" method="post">
+            <input type="text" placeholder="Enter a word" name="word"/><button type="submit">Search</button><button class="reset-btn" type="reset"> Reset</button>
+            <br/>
+            <textarea placeholder="Definition appears here">
+                <% if(locals.definitions){ %>
+                    <%  for(let i=0; i<definitions.length; i++){ %>
+                           Definition <%= ++length%>: <%= definitions[i].definition%>
+                           Example <%= length%>: <%= definitions[i].example%>
+                        <%}%>
+                <%}%>
+            <%if(locals.audio){%>
+                Audio: <%= audio%>
+            <%}%>
+            </textarea>
+        </form>
+    
+</div>
+
+<%- include("partials/footer.ejs")%>
