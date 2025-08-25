@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css"/>
+    <title>Weather App</title>
+</head>
+<body>
+    <div class="main-container">
+        <h1 class="title">Weather App</h1>
+        <h2>Current Temperature is:</h2>
+        <div class="current-temp">
+            <%= temp%> <%= temp_unit%>
+        </div>
+        <hr/>
+            <% if(is_day === 0){ %>
+                <h1>It is Night 🌙</h1>
+            <%}else{%>
+                <h1>It is Day ☀️</h1>
+            <%}%>
+        
+        <div class="time-zone">
+            <h2>Time-Zone: <%= timezone%></h2>
+
+        <div class="coordinates">
+            <h2>latitude: <%= latitude%></h2>
+            <h2>longitude: <%= longitude%></h2>
+        </div>
+        <br/>
+        <hr/>
+        <h1>Hourly(24-hour) temperatures:</h1>
+        <div class="container-hourly-temp">
+            <div class="hourly-temp">
+                <% for(let i=0; i<hourly_temp.length; i++){%>
+                    <h3 class="time"><%= hourly_time[i].slice(11,16)%>:</h3>
+                    <h2><%= hourly_temp[i]%></h2>
+                    <h2><%= temp_unit%></h2>
+                    <h2>|</h2>
+                <%}%>
+            </div>
+        </div>
+
+        <br/>
+        <hr/>
+        <h1>Hourly(24-hour) Wind Speeds:</h1>
+        <div class="container-hourly-wind-speed">
+            <div class="hourly-wind-speed">
+                <% for(let i=0; i<hourly_wind_speed.length; i++){%>
+                    <h3 class="time"><%= hourly_time[i].slice(11,16)%>:</h3>
+                    <h2><%= hourly_wind_speed[i]%></h2>
+                    <h2><%= wind_speed_unit%></h2>
+                    <h2>|</h2>
+                <%}%>
+            </div>
+        </div>
+
+        <br/>
+        <hr/>
+        <h1>Hourly(24-hour) Wind Directions:</h1>
+        <div class="container-hourly-wind-direction">
+            <div class="hourly-wind-direction">
+                <% for(let i=0; i<hourly_wind_direction.length; i++){%>
+                    <h3 class="time"><%= hourly_time[i].slice(11,16)%>:</h3>
+                    <h2><%= hourly_wind_direction[i]%></h2>
+                    <h2><%= wind_direction_unit%></h2>
+                    <h2>|</h2>
+                <%}%>
+            </div>
+        </div>
+    </div>
+    <script>
+        if(<%= is_day%> === 0) {
+            document.body.setAttribute("style","background-color: rgb(54,2,137); color: white")
+            for(let i=0; i<document.querySelectorAll(".time").length;i++){
+                document.querySelectorAll(".time")[i].setAttribute("style", "color:red"); 
+            }
+        }else{
+            document.body.setAttribute("style", "background-color: lightblue; color:black"); 
+        }
+    </script>
+</body>
+</html>

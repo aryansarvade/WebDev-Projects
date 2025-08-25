@@ -1,0 +1,64 @@
+.hourly-temp,
+.hourly-wind-speed,
+.hourly-wind-direction {
+  display: flex;
+  flex-direction: row;
+  height: 5vh;
+  width: 80vw;
+  overflow-x: auto;
+  border: 2px solid goldenrod;
+  border-radius: 5px;
+  gap: 15px;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+}
+
+.current-temp {
+  font-size: 5rem;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+.container-hourly-temp,
+.container-hourly-wind-speed,
+.container-hourly-wind-direction {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+hr {
+  width: 90vw;
+  border: none; /* remove default style */
+  border-top: 2px solid goldenrod; /* set color and thickness */
+  margin-top: 2rem;
+}
+
+.coordinates {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border: 2px solid goldenrod;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.time {
+  color: blue;
+}
+
+.title {
+  color: rgb(222, 111, 7);
+  font-size: 4rem;
+}
