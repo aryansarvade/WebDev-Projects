@@ -1,0 +1,225 @@
+/* Google Font */
+.ewert-regular {
+  font-family: "Ewert", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.rye-regular {
+  font-family: "Rye", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.pinyon-script-regular {
+  font-family: "Pinyon Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.almendra-sc-regular {
+  font-family: "Almendra SC", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.new-rocker-regular {
+  font-family: "New Rocker", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.diplomata-regular {
+  font-family: "Diplomata", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.tomorrow-regular {
+  font-family: "Tomorrow", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.meddon-regular {
+  font-family: "Meddon", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.barrio-regular {
+  font-family: "Barrio", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  background-color: rgb(112, 44, 12);
+  perspective: 1000px;
+}
+
+.aboutbox {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.doctitle {
+  color: burlywood;
+  font-family: "Ewert";
+  font-size: 4.5rem;
+  position: relative;
+  display: inline-block;
+}
+.doctitle::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 100%;
+  height: 8px;
+  background-color: #000000;
+  border-radius: 4px;
+  border: 2px solid rgb(117, 79, 29);
+}
+
+.subtitle {
+  color: burlywood;
+  font-family: "Rye";
+  font-size: 3rem;
+}
+.bookimage {
+  height: 3.5rem;
+  margin-left: 2px;
+}
+
+.pagedesc {
+  color: beige;
+  font-family: "Pinyon Script";
+  font-size: 1.65rem;
+  text-align: center;
+}
+
+hr {
+  margin: 2rem;
+  width: 90%;
+  height: 16px;
+  border: 3px solid burlywood;
+  border-radius: 10px;
+  background-color: black;
+}
+
+.horizontalrule {
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+}
+.info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  border: 5px solid black;
+  border-radius: 10px;
+  background-color: #f8b259;
+}
+
+.book-info-box {
+  display: flex;
+  align-items: center;
+  margin: 3rem;
+  width: 90%;
+  border: 2px solid whitesmoke;
+  border-radius: 10px;
+  background-color: rgb(35, 12, 1);
+  transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.8s ease,
+    opacity 1.5s ease;
+
+  /* initial 3D hidden state */
+  opacity: 0;
+  transform: translateY(-100px) translateX(-50px) rotateX(25deg);
+  box-shadow: 0 40px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* final visible “landed” state */
+.book-info-box.visible {
+  opacity: 1;
+  transform: translateY(0) translateX(0) rotateX(0);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Hover effect (keeps your old styling intact) */
+.book-info-box:hover {
+  transform: translate(-20px, -20px);
+  box-shadow: 20px 20px 10px black;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.info {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: beige;
+}
+
+.info * {
+  text-align: center;
+}
+
+.cover {
+  margin-left: 20px;
+}
+
+.book-cover {
+  width: 190px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.title {
+  font-family: "Diplomata";
+  font-size: 1.8rem;
+  color: rgb(163, 218, 163);
+}
+
+.authors {
+  font-family: "Meddon";
+  font-size: 1.6rem;
+  color: lightpink;
+}
+
+.published {
+  font-family: "Tomorrow";
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.keyword {
+  font-family: "Rye";
+  font-size: 1.9rem;
+  color: goldenrod;
+}
+
+.recommendation {
+  font-family: "Rye";
+  font-size: 1.9rem;
+  color: #bbdce5;
+}
+
+.summary {
+  font-family: "Barrio";
+  font-size: 1.9rem;
+  color: #c75d2c;
+}

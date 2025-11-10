@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Notes</title>
+    <link rel="stylesheet" href="/styles/main.css"/>
+    <!-- Google Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Almendra+SC&family=Diplomata&family=Ewert&family=New+Rocker&family=Pinyon+Script&family=Rye&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Meddon&family=Tomorrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barrio&family=Meddon&family=Tomorrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="aboutbox">
+        <div class="doctitle">ARYAN SARVADE</div>
+        <div class="subtitle">BOOKS I'VE READ <img class="bookimage" src="images/book.png"/></div>
+        <div class="pagedesc">📖 Book Notes is my personal collection of reflections on every book I’ve read — short, honest summaries paired with thoughtful ratings. Whether it’s fiction, philosophy, or self-growth, each note captures what truly stayed with me from the pages. Simple, genuine, and spoiler-free — just enough to help you decide your next great read.
+        </div>
+    </div>
+
+    <div class="horizontalrule"><hr/></div>
+    
+    <!-- Books -->
+    <div class="main">
+        <div class="info-container">
+            <% for(let book of books){%>
+                <div class="book-info-box">
+                    <div class="cover" id="cover<%=book.id%>">
+                        <img src="<%=book.thumbnail%>" class="book-cover"/>
+                    </div>
+                    <div class="info">
+                        <div class="title" id="title<%=book.id%>">
+                            <p>Title: <%=book.title%></p>
+                        </div>
+                        <div class="authors" id="authors<%=book.id%>">
+                            <p>Authors: <%=book.authors%></p>
+                        </div>
+                        <div class="published" id="published<%=book.id%>">
+                            <p>Published Date: <%=book.published_date%></p>
+                        </div>
+                        <div class="keyword" id="keyword<%=book.id%>">
+                            <p>Genre: <%=book.keyword%></p>
+                        </div>
+                        <div class="recommendation">
+                            <p>Recommendation: <%=book.rating%>/10</p>
+                        </div>
+                        <div class="summary">
+                            <p>Summary: <%=book.summary%></p>
+                        </div>
+                    </div>
+                </div>
+            <%}%>
+        </div>
+    </div>
+    <script src="script.js" charset="utf-8"></script>
+</body>
+</html>
