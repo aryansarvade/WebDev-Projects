@@ -1,5 +1,5 @@
+// index.js
 import express from "express";
-import bodyParser from "body-parser";
 import axios from "axios";
 import pg from "pg";
 import dotenv from "dotenv";
@@ -7,108 +7,113 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-// Middleware
-app.use(bodyParser.urlencoded({ extended: true }));
+// Serve static files from public/
 app.use(express.static("public"));
+app.set("view engine", "ejs");
 
-// Database connection
+// PostgreSQL connection (Render-ready)
 const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "book_notes",
-  password: "12345678",
-  port: "5432",
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASS,
+  port: process.env.DB_PORT || 5432,
+  ssl: { rejectUnauthorized: false },
 });
-db.connect();
 
-/* The Google Books API doesn’t have a “random” endpoint —
-so we fake randomness by searching for different popular keywords
-and taking a few books from each. */
-const randomKeywords = [
-  "history",
-  "science",
-  "love",
-  "war",
-  "music",
-  "art",
-  "technology",
-  "fiction",
-  "philosophy",
-  "nature",
-  "psychology",
-  "travel",
-  "space",
-  "culture",
-  "education",
-  "health",
-  "leadership",
-  "biography",
-  "business",
-  "adventure",
-];
+// Connect to DB
+async function connectDB() {
+  try {
+    await db.connect();
+    console.log("✅ Connected to PostgreSQL successfully!");
 
+    // Create table if not exists
+    await db.query(`
+      CREATE TABLE IF NOT EXISTS books (
+        id SERIAL PRIMARY KEY,
+        title TEXT,
+        authors TEXT,
+        thumbnail TEXT,
+        published_date TEXT,
+        keyword TEXT,
+        rating NUMERIC,
+        summary TEXT
+      );
+    `);
+    console.log("✅ Verified or created 'books' table successfully!");
+  } catch (err) {
+    console.error("❌ Database connection/setup error:", err.message);
+    process.exit(1);
+  }
+}
+
+// Fetch 20 random books using Google Books API
+async function fetchRandomBooks(keyword = "fiction") {
+  const url = `https://www.googleapis.com/books/v1/volumes?q=${keyword}&maxResults=20&key=${process.env.GOOGLE_API_KEY}`;
+  const response = await axios.get(url);
+  return response.data.items || [];
+}
+
+// Home route: fetch, insert, and display books
 app.get("/", async (req, res) => {
   try {
-    // 1️⃣ Check how many books are currently stored
     const countResult = await db.query("SELECT COUNT(*) FROM books");
     const currentCount = parseInt(countResult.rows[0].count);
 
-    // 2️⃣ If already 50 or more, skip inserting new books
     if (currentCount >= 50) {
-      console.log("Database limit reached (50 books). No new books added.");
+      console.log(
+        "⚠️ Database limit reached (50 books). Displaying existing books."
+      );
     } else {
-      const selectedKeywords = randomKeywords
-        .sort(() => 0.5 - Math.random())
-        .slice(0, 5); // pick 5 random topics
-      let allBooks = [];
+      const keywords = [
+        "science",
+        "history",
+        "psychology",
+        "fiction",
+        "art",
+        "philosophy",
+      ];
+      const randomKeyword =
+        keywords[Math.floor(Math.random() * keywords.length)];
+      const books = await fetchRandomBooks(randomKeyword);
 
-      for (const keyword of selectedKeywords) {
-        const API_URL = `https://www.googleapis.com/books/v1/volumes?q=${keyword}&maxResults=5`;
-        const response = await axios.get(API_URL);
+      for (const book of books) {
+        const volume = book.volumeInfo;
+        if (!volume.title || !volume.authors || !volume.imageLinks) continue;
 
-        if (response.data.items) {
-          const books = response.data.items.map((item) => {
-            const info = item.volumeInfo;
-            return {
-              title: info.title || "No title",
-              authors: info.authors ? info.authors.join(", ") : "Unknown",
-              thumbnail: info.imageLinks?.thumbnail || "",
-              published_date: info.publishedDate || null,
-              keyword,
-            };
-          });
-          allBooks = allBooks.concat(books);
-        }
+        const query = `
+          INSERT INTO books (title, authors, thumbnail, published_date, keyword, rating, summary)
+          VALUES ($1, $2, $3, $4, $5, $6, $7)
+          ON CONFLICT DO NOTHING;
+        `;
+        await db.query(query, [
+          volume.title,
+          volume.authors.join(", "),
+          volume.imageLinks.thumbnail,
+          volume.publishedDate || "Unknown",
+          randomKeyword,
+          (Math.random() * 5).toFixed(1), // random rating 0–5
+          "A compelling narrative that explores human ideas deeply.", // placeholder summary
+        ]);
       }
-
-      // Store into PostgreSQL
-      for (const book of allBooks) {
-        await db.query(
-          `INSERT INTO books (title, authors, thumbnail, published_date, keyword)
-         VALUES ($1, $2, $3, $4, $5);`,
-          [
-            book.title,
-            book.authors,
-            book.thumbnail,
-            book.published_date,
-            book.keyword,
-          ]
-        );
-      }
+      console.log("✅ Books fetched and inserted successfully!");
     }
-    // Render Index.ejs
-    console.log("Render index.ejs");
-    const result = await db.query("SELECT * FROM books");
-    let books = result.rows;
-    res.render("index.ejs", { books: books });
-  } catch (error) {
-    console.error("Error fetching books:", error.message);
-    res.status(500).json({ error: "Failed to fetch random books" });
+
+    const allBooks = await db.query(
+      "SELECT * FROM books ORDER BY id DESC LIMIT 50"
+    );
+    res.render("index", { books: allBooks.rows });
+  } catch (err) {
+    console.error("❌ Error fetching or displaying books:", err.message);
+    res.status(500).send("Error fetching books.");
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+// Start server after DB connection
+connectDB().then(() => {
+  app.listen(port, () => {
+    console.log(`🚀 Server running on port ${port}`);
+  });
 });
